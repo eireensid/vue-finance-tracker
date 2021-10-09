@@ -22,7 +22,8 @@ const firebaseConfig = {
   storageBucket: "vue-crm-9fb0c.appspot.com",
   messagingSenderId: "791477869721",
   appId: "1:791477869721:web:d59bc3d06e141bfe796c08",
-  measurementId: "G-7LTTP1SKB6"
+  measurementId: "G-7LTTP1SKB6",
+  databaseURL: "https://vue-crm-9fb0c-default-rtdb.europe-west1.firebasedatabase.app/"
 };
 
 initializeApp(firebaseConfig);
