@@ -30,12 +30,6 @@ const routes = [
     component: () => import('../views/Categories.vue')
   },
   {
-    path: '/categories',
-    name: 'Categories',
-    meta: {layout: 'main'},
-    component: () => import('../views/Categories.vue')
-  },
-  {
     path: '/detail-record',
     name: 'DetailRecord',
     meta: {layout: 'main'},
