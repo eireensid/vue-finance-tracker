@@ -36,9 +36,10 @@ export default {
       return user ? user.uid : null
     },
 
-    async logout() {
+    async logout({commit}) {
       const auth = getAuth();
       await signOut(auth)
+      commit('clearInfo')
     }
   }
 }
