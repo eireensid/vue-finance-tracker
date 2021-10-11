@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
-import Sidebar from '@/components/Sidebar'
+import Navbar from '@/components/app/Navbar'
+import Sidebar from '@/components/app/Sidebar'
 
 export default {
   name: 'MainLayout',
