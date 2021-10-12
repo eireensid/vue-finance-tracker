@@ -3,7 +3,7 @@
     <div class="page-title">
       <h3>Счет</h3>
 
-      <button class="btn waves-effect waves-light btn-small">
+      <button class="btn waves-effect waves-light btn-small" @click="refresh">
         <i class="material-icons">refresh</i>
       </button>
     </div>
@@ -12,9 +12,14 @@
 
     <div v-else class="row">
       
-      <HomeBill />
+      <HomeBill 
+        :rates="currency.rates" 
+      />
 
-      <HomeCurrency />
+      <HomeCurrency 
+        :rates="currency.rates" 
+        :date="currency.date"
+      />
       
     </div>
   </div>
@@ -23,7 +28,6 @@
 <script>
 import HomeBill from '@/components/HomeBill'
 import HomeCurrency from '@/components/HomeCurrency'
-import Loader from '../components/app/Loader.vue'
 
 export default {
   name: 'Home',
@@ -31,8 +35,19 @@ export default {
     loading: true,
     currency: null
   }),
+  async mounted() {
+    this.currency = await this.$store.dispatch('fetchCurrency')
+    this.loading = false
+  },
   components: {
     HomeBill, HomeCurrency
+  },
+  methods: {
+    async refresh() {
+      this.loading = true
+      this.currency = await this.$store.dispatch('fetchCurrency')
+      this.loading = false
+    }
   }
 }
 </script>
