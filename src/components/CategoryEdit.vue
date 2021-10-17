@@ -4,7 +4,7 @@
       <h4>Редактировать</h4>
     </div>
 
-    <form @submit.prevent="submitHandler">
+    <form>
       <div class="input-field" >
         <select ref="select" v-model="current">
           <option
@@ -50,8 +50,12 @@
         </span>
       </div>
 
-      <button class="btn waves-effect waves-light" type="submit">
+      <button class="btn waves-effect waves-light" @click.prevent="updateHandler">
         Обновить
+        <i class="material-icons right">send</i>
+      </button>
+      <button class="btn waves-effect waves-light" style="margin-left: 15px" @click.prevent="deleteHandler">
+        Удалить
         <i class="material-icons right">send</i>
       </button>
     </form>
@@ -109,7 +113,7 @@ export default {
     }
   },
   methods: {
-    async submitHandler() {
+    async updateHandler() {
       if (this.$v.$invalid) {
         this.$v.$touch()
         return
@@ -124,6 +128,24 @@ export default {
         await this.$store.dispatch('updateCategory', categoryData)
         this.$message('Категория успешно обновлена')
         this.$emit('updated', categoryData) 
+        
+      } catch (e) {}
+    },
+    async deleteHandler() {
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
+      }
+
+      try {
+        await this.$store.dispatch('deleteCategory', this.current)
+        this.$message('Категория успешно удалена')
+        this.$emit('updated', this.current) 
+
+        const {id, title, limit} = this.categories[0]
+        this.current = id
+        this.title = title
+        this.limit = limit
         
       } catch (e) {}
     }
