@@ -83,6 +83,10 @@ export default {
       const {title, limit} = this.categories.find(c => c.id === catId)
       this.title = title
       this.limit = limit
+    },
+    categories() {
+      this.select.destroy()
+      this.select = M.FormSelect.init(this.$refs.select)
     }
   },
   created() {
@@ -94,6 +98,10 @@ export default {
   mounted() {
     this.select = M.FormSelect.init(this.$refs.select)
     M.updateTextFields()
+  },
+  updated() {
+    this.select.destroy()
+    this.select = M.FormSelect.init(this.$refs.select)
   },
   destroyed() {
     if (this.select && this.select.destroy) {
@@ -114,8 +122,9 @@ export default {
           limit: this.limit
         }
         await this.$store.dispatch('updateCategory', categoryData)
-        this.message('Категория успешно обновлена')
-        this.$emit('updated', categoryData)
+        this.$message('Категория успешно обновлена')
+        this.$emit('updated', categoryData) 
+        
       } catch (e) {}
     }
   }
