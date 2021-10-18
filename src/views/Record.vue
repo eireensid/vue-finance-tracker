@@ -4,11 +4,20 @@
       <h3>Новая запись</h3>
     </div>
 
-    <form class="form">
+    <Loader v-if="loading" />
+
+    <p class="center" v-else-if="!categories.length">Категорий пока нет. <router-link to="/categories">Добавить новую категорию</router-link></p>
+
+    <form class="form" v-else @submit.prevent="handleSubmit">
       <div class="input-field" >
-        <select>
+        <select ref="select" v-model="category">
           <option
-          >name cat</option>
+            v-for="c of categories"
+            :key="c.id"
+            :value="c.id"
+          >
+            {{c.title}}
+          </option>
         </select>
         <label>Выберите категорию</label>
       </div>
@@ -20,6 +29,7 @@
               name="type"
               type="radio"
               value="income"
+              v-model="type"
           />
           <span>Доход</span>
         </label>
@@ -32,6 +42,7 @@
               name="type"
               type="radio"
               value="outcome"
+              v-model="type"
           />
           <span>Расход</span>
         </label>
@@ -41,19 +52,32 @@
         <input
             id="amount"
             type="number"
+            v-model.number="amount"
+            :class="{invalid: $v.amount.$error}"
         >
         <label for="amount">Сумма</label>
-        <span class="helper-text invalid">amount пароль</span>
+        <span 
+          v-if="$v.amount.$error"
+          class="helper-text invalid"
+        >
+          Минимальное значение {{$v.amount.$params.minValue.min}}
+        </span>
       </div>
 
       <div class="input-field">
         <input
             id="description"
             type="text"
+            v-model="description"
+            :class="{invalid: $v.description.$error}"
         >
         <label for="description">Описание</label>
-        <span
-              class="helper-text invalid">description пароль</span>
+        <span 
+          v-if="$v.description.$error"
+          class="helper-text invalid"
+        >
+          Введите описание
+        </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
@@ -63,3 +87,79 @@
     </form>
   </div>
 </template>
+
+<script>
+import {required, minValue} from 'vuelidate/lib/validators'
+import {mapGetters} from 'vuex'
+
+export default {
+  name: 'Record',
+  data: () => ({
+    categories: [],
+    category: null,
+    loading: true,
+    select: null,
+    type: 'outcome',
+    amount: 1,
+    description: ''
+  }),
+  validations: {
+    amount: {minValue: minValue(1)},
+    description: {required}
+  },
+  async created() {
+    this.categories = await this.$store.dispatch('fetchCategories')
+    this.loading = false
+
+    if (this.categories.length) {
+      this.category = this.categories[0].id
+    }
+
+    this.$nextTick(() => {
+      this.select = M.FormSelect.init(this.$refs.select);
+      M.updateTextFields()
+    })
+  },
+  computed: {
+    ...mapGetters(['info']),
+    canCreateRecord() {
+      if (this.type === 'income') {
+        return true
+      }
+
+      return this.info.bill >= this.amount
+    }
+  },
+  destroyed() {
+    if (this.select && this.select.destroy) {
+      this.select.destroy()
+    }
+  },
+  methods: {
+    async handleSubmit() {
+      if (this.$v.$invalid) {
+        this.$v.$touch()
+        return
+      }
+
+      if (this.canCreateRecord) {
+
+      } else {
+        this.$message(`Недостаточно средств на счете (${this.amount - this.info.bill})`)
+      }
+
+      // try {
+      //   const categoryData = {
+      //     id: this.current,
+      //     title: this.title,
+      //     limit: this.limit
+      //   }
+      //   await this.$store.dispatch('updateCategory', categoryData)
+      //   this.$message('Категория успешно обновлена')
+      //   this.$emit('updated', categoryData) 
+        
+      // } catch (e) {}
+    }
+  }
+}
+</script>

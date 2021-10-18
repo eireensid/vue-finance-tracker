@@ -4,7 +4,7 @@
       <h4>Редактировать</h4>
     </div>
 
-    <form>
+    <form @submit.prevent="updateHandler">
       <div class="input-field" >
         <select ref="select" v-model="current">
           <option
@@ -50,7 +50,7 @@
         </span>
       </div>
 
-      <button class="btn waves-effect waves-light" @click.prevent="updateHandler">
+      <button class="btn waves-effect waves-light" type="submit">
         Обновить
         <i class="material-icons right">send</i>
       </button>
@@ -91,6 +91,7 @@ export default {
     categories() {
       this.select.destroy()
       this.select = M.FormSelect.init(this.$refs.select)
+      M.updateTextFields()
     }
   },
   created() {
@@ -106,6 +107,7 @@ export default {
   updated() {
     this.select.destroy()
     this.select = M.FormSelect.init(this.$refs.select)
+    M.updateTextFields()
   },
   destroyed() {
     if (this.select && this.select.destroy) {
@@ -132,11 +134,6 @@ export default {
       } catch (e) {}
     },
     async deleteHandler() {
-      if (this.$v.$invalid) {
-        this.$v.$touch()
-        return
-      }
-
       try {
         await this.$store.dispatch('deleteCategory', this.current)
         this.$message('Категория успешно удалена')
