@@ -2,7 +2,7 @@
   <div>
     <div class="page-title">
       <h3>Планирование</h3>
-      <h4>{{getCurrencySign('RUB', info.bill)}}</h4>
+      <h4 v-if="!loading">{{getCurrencySign('RUB', info.bill)}}</h4>
     </div>
 
     <Loader v-if="loading" />
@@ -15,7 +15,7 @@
           <strong>{{cat.title}}</strong>
           {{getCurrencySign('RUB', cat.spend)}} из {{getCurrencySign('RUB', cat.limit)}}
         </p>
-        <div class="progress" >
+        <div class="progress" v-tooltip="cat.tooltip">
           <div
               class="determinate"
               :class="[cat.progressColor]"
@@ -59,11 +59,15 @@ export default {
           ? 'yellow'
           : 'red'  
 
+      const tooltipValue = cat.limit - spend    
+      const tooltip = `${tooltipValue < 0 ? 'Превышение на' : 'Осталось'} ${this.getCurrencySign('RUB', Math.abs(tooltipValue))}`
+
       return {
         ...cat,
         progressPercent,
         progressColor,
-        spend
+        spend,
+        tooltip
       }    
     })
 

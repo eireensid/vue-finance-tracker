@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import messagePlugin from './utils/message.plugin'
+import tooltipDirective from './directives/tooltip.directive'
 import Loader from '@/components/app/Loader'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
@@ -16,6 +17,7 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(messagePlugin)
 Vue.component('Loader', Loader)
+Vue.directive('tooltip', tooltipDirective)
 
 const firebaseConfig = {
   apiKey: "AIzaSyCt4BnbfQg_IgZ_OBrPOCHw2UFl-zb4e3o",
