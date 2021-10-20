@@ -143,22 +143,27 @@ export default {
       }
 
       if (this.canCreateRecord) {
+        try {
+          await this.$store.dispatch('createRecord', {
+            categoryId: this.category,
+            amount: this.amount,
+            description: this.description,
+            type: this.type,
+            date: new Date().toJSON()
+          })
+          const bill = this.type === 'income'
+            ? this.info.bill + this.amount
+            : this.info.bill - this.amount
 
+          await this.$store.dispatch('updateInfo', {bill})  
+          this.$message('Запись успешно создана')
+          this.$v.$reset()
+          this.amount = 1
+          this.description = ''
+        } catch (e) {}
       } else {
         this.$message(`Недостаточно средств на счете (${this.amount - this.info.bill})`)
       }
-
-      // try {
-      //   const categoryData = {
-      //     id: this.current,
-      //     title: this.title,
-      //     limit: this.limit
-      //   }
-      //   await this.$store.dispatch('updateCategory', categoryData)
-      //   this.$message('Категория успешно обновлена')
-      //   this.$emit('updated', categoryData) 
-        
-      // } catch (e) {}
     }
   }
 }
