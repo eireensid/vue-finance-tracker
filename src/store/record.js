@@ -1,4 +1,4 @@
-import { getDatabase, ref, push } from "firebase/database";
+import { getDatabase, ref, push, onValue } from "firebase/database";
 
 export default {
   actions: {
@@ -11,6 +11,24 @@ export default {
         commit('setError', e)
         throw e
       }
+    },
+    async fetchRecords({dispatch, commit}) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const uid = await dispatch('getUid')
+          const db = getDatabase();
+          onValue(ref(db, `/users/${uid}/records`), (snapshot) => {
+            const records = snapshot.val() || {}
+            resolve(Object.keys(records).map(key => ({...records[key], id: key})))
+          }, {
+            onlyOnce: true
+          });
+          
+        } catch (e) {
+          commit('setError', e)
+          reject(e)
+        }
+      })
     }
   }
 }

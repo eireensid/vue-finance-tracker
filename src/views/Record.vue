@@ -41,7 +41,7 @@
               class="with-gap"
               name="type"
               type="radio"
-              value="outcome"
+              value="expense"
               v-model="type"
           />
           <span>Расход</span>
@@ -99,7 +99,7 @@ export default {
     category: null,
     loading: true,
     select: null,
-    type: 'outcome',
+    type: 'expense',
     amount: 1,
     description: ''
   }),
