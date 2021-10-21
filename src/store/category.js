@@ -50,6 +50,24 @@ export default {
           reject(e)
         }
       })
+    },
+    fetchCategoryById({dispatch, commit}, id) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const uid = await dispatch('getUid')
+          const db = getDatabase();
+          onValue(ref(db, `/users/${uid}/categories/${id}`), (snapshot) => {
+            const category = snapshot.val() || {}
+            resolve({...category, id})
+          }, {
+            onlyOnce: true
+          });
+          
+        } catch (e) {
+          commit('setError', e)
+          reject(e)
+        }
+      })
     }
   }
 }

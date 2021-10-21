@@ -29,6 +29,24 @@ export default {
           reject(e)
         }
       })
+    },
+    async fetchRecordById({dispatch, commit}, id) {
+      return new Promise(async (resolve, reject) => {
+        try {
+          const uid = await dispatch('getUid')
+          const db = getDatabase();
+          onValue(ref(db, `/users/${uid}/records/${id}`), (snapshot) => {
+            const record = snapshot.val() || {}
+            resolve({...record, id})
+          }, {
+            onlyOnce: true
+          });
+          
+        } catch (e) {
+          commit('setError', e)
+          reject(e)
+        }
+      })
     }
   }
 }
