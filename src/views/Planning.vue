@@ -74,7 +74,7 @@ export default {
     this.loading = false
   },
   methods: {
-     getCurrencyValue(currency, value) {
+    getCurrencyValue(currency, value) {
       return Math.floor(value)
     },
     getCurrencySign(currency = 'RUB', value) {
