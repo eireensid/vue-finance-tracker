@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuelidate from 'vuelidate'
+import Paginate from 'vuejs-paginate'
 import App from './App.vue'
 import router from './router'
 import store from './store'
@@ -17,6 +18,7 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate)
 Vue.use(messagePlugin)
 Vue.component('Loader', Loader)
+Vue.component('Paginate', Paginate)
 Vue.directive('tooltip', tooltipDirective)
 
 const firebaseConfig = {

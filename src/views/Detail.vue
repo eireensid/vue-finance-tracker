@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import {Filters} from '@/mixins/filters'
+import {Filters} from '@/mixins/filters.mixin'
 
 export default {
   name: 'Record',
