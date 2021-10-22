@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import {Filters} from '@/mixins/filters.mixin'
+
 export default {
   data: () => ({
     date: new Date(),
@@ -47,6 +49,7 @@ export default {
     interval: null,
     dropdown: null
   }),
+  mixins: [Filters],
   mounted() {
     this.dropdown = window.M.Dropdown.init(this.$refs.dropdown, {
       constraintWidth: false
@@ -67,25 +70,6 @@ export default {
     async logout() {
       await this.$store.dispatch('logout')
       this.$router.push('/login?message=logout')
-    },
-
-    filterDate(value, format = 'date') {
-      const options = {}
-
-      if (format.includes('date')) {
-        options.day = '2-digit'
-        options.month = 'long'
-        options.year = 'numeric'
-      }
-
-      if (format.includes('time')) {
-        options.hour = '2-digit'
-        options.minute = '2-digit'
-        options.second = '2-digit'
-      }
-
-      this.filteredDate = new Intl.DateTimeFormat('ru-RU', options).format(new Date(value))
-      return this.filteredDate
     }
   },
   beforeDestroy() {

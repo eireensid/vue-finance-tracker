@@ -29,6 +29,7 @@
 
 <script>
 import {mapGetters} from 'vuex'
+import {Filters} from '@/mixins/filters.mixin'
 
 export default {
   name: 'Planning',
@@ -36,6 +37,7 @@ export default {
     loading: true,
     categories: []
   }),
+  mixins: [Filters],
   computed: {
     ...mapGetters(['info'])
   },
@@ -72,17 +74,6 @@ export default {
     })
 
     this.loading = false
-  },
-  methods: {
-    getCurrencyValue(currency, value) {
-      return Math.floor(value)
-    },
-    getCurrencySign(currency = 'RUB', value) {
-      return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency
-      }).format(this.getCurrencyValue(currency, value))
-    }
   }
 }
 </script>

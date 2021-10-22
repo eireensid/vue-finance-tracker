@@ -1,3 +1,5 @@
+import store from '../store'
+
 export const Filters = {
   methods: {
     filterDate(value, format = 'date') {
@@ -15,7 +17,9 @@ export const Filters = {
         options.second = '2-digit'
       }
 
-      this.filteredDate = new Intl.DateTimeFormat('ru-RU', options).format(new Date(value))
+      const locale = this.$store.getters.info.locale || 'ru-RU'
+      
+      this.filteredDate = new Intl.DateTimeFormat(locale, options).format(new Date(value))
       return this.filteredDate
     },
     getCurrencyValue(currency, value) {

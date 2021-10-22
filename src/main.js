@@ -10,6 +10,9 @@ import Loader from '@/components/app/Loader'
 import './registerServiceWorker'
 import 'materialize-css/dist/js/materialize.min'
 
+import ru from './locales/ru.json'
+import en from './locales/en.json'
+
 import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 
@@ -20,6 +23,20 @@ Vue.use(messagePlugin)
 Vue.component('Loader', Loader)
 Vue.component('Paginate', Paginate)
 Vue.directive('tooltip', tooltipDirective)
+
+const locales = {
+  'ru-RU': ru,
+  'en-US': en
+}
+
+Vue.mixin({
+  methods: {
+    localize(key) {
+      const locale = store.getters.info.locale || 'ru-RU'
+      return locales[locale][key] || `[Localize error]: key ${key} not found`
+    }
+  }
+})
 
 const firebaseConfig = {
   apiKey: "AIzaSyCt4BnbfQg_IgZ_OBrPOCHw2UFl-zb4e3o",

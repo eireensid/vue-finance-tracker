@@ -10,7 +10,7 @@
           class="currency-line"
         >
           <span>
-            {{getCurrencySign(cur)}}
+            {{getCurrencySign(cur, base * rates[cur])}}
           </span>
         </p>
       </div>
@@ -19,25 +19,17 @@
 </template>
 
 <script>
+import {Filters} from '@/mixins/filters.mixin'
+
 export default {
   data: () => ({
     currencies: ['RUB', 'USD', 'EUR']
   }),
   props: ['rates'],
+  mixins: [Filters],
   computed: {
     base() {
       return this.$store.getters.info.bill / (this.rates['RUB'] / this.rates['EUR'])
-    }
-  },
-  methods: {
-    getCurrencyValue(currency) {
-      return Math.floor(this.base * this.rates[currency])
-    },
-    getCurrencySign(currency = 'RUB') {
-      return new Intl.NumberFormat('ru-RU', {
-        style: 'currency',
-        currency
-      }).format(this.getCurrencyValue(currency))
     }
   }
 }
