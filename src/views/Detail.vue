@@ -3,9 +3,9 @@
     <Loader v-if="loading" />
     <div v-else-if="record">
       <div class="breadcrumb-wrap">
-        <router-link to="/history" class="breadcrumb">История</router-link>
+        <router-link to="/history" class="breadcrumb">{{localize('Menu_History')}}</router-link>
         <a @click.prevent class="breadcrumb">
-          {{record.type === 'income' ? 'Доход' : 'Расход'}}
+          {{record.type === 'income' ? localize('Income') : localize('Expense')}}
         </a>
       </div>
       <div class="row">
@@ -15,9 +15,9 @@
               'green': record.type === 'income'
             }">
             <div class="card-content white-text">
-              <p>Описание: {{record.description}}</p>
-              <p>Сумма: {{getCurrencySign('RUB', record.amount)}}</p>
-              <p>Категория: {{record.categoryName}}</p>
+              <p>{{localize('Description')}}: {{record.description}}</p>
+              <p>{{localize('Amount')}}: {{getCurrencySign('RUB', record.amount)}}</p>
+              <p>{{localize('Category')}}: {{record.categoryName}}</p>
 
               <small>{{filterDate(record.date, 'datetime')}}</small>
             </div>
@@ -25,7 +25,7 @@
         </div>
       </div>
     </div>
-    <p class="center" v-else>Запись с id={{$route.params.id}} не найдена</p> 
+    <p class="center" v-else>{{localize('NoDetailText1')}} id={{$route.params.id}} {{localize('NoDetailText2')}}</p> 
   </div>
 </template>
 

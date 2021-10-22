@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-subtitle">
-      <h4>Редактировать</h4>
+      <h4>{{localize('Edit')}}</h4>
     </div>
 
     <form @submit.prevent="updateHandler">
@@ -15,7 +15,7 @@
             {{c.title}}
           </option>
         </select>
-        <label>Выберите категорию</label>
+        <label>{{localize('SelectCategory')}}</label>
       </div>
 
       <div class="input-field">
@@ -25,12 +25,12 @@
             v-model="title"
             :class="{invalid: $v.title.$error}"
         >
-        <label for="name">Название</label>
+        <label for="name">{{localize('Title')}}</label>
         <span 
           v-if="$v.title.$error"
           class="helper-text invalid"
         >
-          Введите название категории
+          {{localize('Message_CategoryTitle')}}
         </span>
       </div>
 
@@ -41,21 +41,21 @@
             v-model.number="limit"
             :class="{invalid: $v.limit.$error}"
         >
-        <label for="limit">Лимит</label>
+        <label for="limit">{{localize('Limit')}}</label>
         <span 
           v-if="$v.limit.$error"
           class="helper-text invalid"
         >
-          Минимальное значение {{$v.limit.$params.minValue.min}}
+          {{localize('Message_MinLength')}} {{$v.limit.$params.minValue.min}}
         </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Обновить
+        {{localize('Update')}}
         <i class="material-icons right">send</i>
       </button>
       <button class="btn waves-effect waves-light" style="margin-left: 15px" @click.prevent="deleteHandler">
-        Удалить
+        {{localize('Delete')}}
         <i class="material-icons right">send</i>
       </button>
     </form>

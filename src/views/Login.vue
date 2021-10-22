@@ -1,7 +1,7 @@
 <template>
   <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
-      <span class="card-title">Домашняя бухгалтерия</span>
+      <span class="card-title">{{localize('CRM_Title')}}</span>
       <div class="input-field">
         <input
             id="email"
@@ -14,13 +14,13 @@
           class="helper-text invalid"
           v-if="$v.email.$dirty && !$v.email.required"
         >
-          Поле Email не должно быть пустым
+          {{localize('Message_EmailRequired')}}
         </small>
         <small 
           class="helper-text invalid"
           v-else-if="$v.email.$dirty && !$v.email.email"
         >
-          Введите корректный Email
+          {{localize('Message_EmailValid')}}
         </small>
       </div>
       <div class="input-field">
@@ -30,18 +30,18 @@
             v-model.trim="password"
             :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">Пароль</label>
+        <label for="password">{{localize('Password')}}</label>
         <small 
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
         >
-          Введите пароль
+          {{localize('Message_EnterPassword')}}
         </small>
         <small 
           class="helper-text invalid"
           v-else-if="$v.password.$dirty && !$v.password.minLength"
         >
-          Пароль должен быть от {{$v.password.$params.minLength.min}} символов. Сейчас он {{password.length}}
+          {{localize('NoPasswordText1')}} {{$v.password.$params.minLength.min}} {{localize('NoPasswordText2')}} {{password.length}}
         </small>
       </div>
     </div>
@@ -51,14 +51,14 @@
             class="btn waves-effect waves-light auth-submit"
             type="submit"
         >
-          Войти
+          {{localize('Login')}}
           <i class="material-icons right">send</i>
         </button>
       </div>
 
       <p class="center">
-        Нет аккаунта?
-        <router-link to="/register">Зарегистрироваться</router-link>
+        {{localize('NoAccount')}}
+        <router-link to="/register">{{localize('Register')}}</router-link>
       </p>
     </div>
   </form>

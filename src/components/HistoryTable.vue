@@ -3,11 +3,11 @@
     <thead>
     <tr>
       <th>#</th>
-      <th>Сумма</th>
-      <th>Дата</th>
-      <th>Категория</th>
-      <th>Тип</th>
-      <th>Открыть</th>
+      <th>{{localize('Amount')}}</th>
+      <th>{{localize('Date')}}</th>
+      <th>{{localize('Category')}}</th>
+      <th>{{localize('Type')}}</th>
+      <th>{{localize('Open')}}</th>
     </tr>
     </thead>
 
@@ -27,7 +27,7 @@
       </td>
       <td>
         <button 
-          v-tooltip="'Посмотреть запись'"
+          v-tooltip="localize('OpenRecord')"
           class="btn-small btn" 
           @click="$router.push('/detail/' + record.id)"
         >

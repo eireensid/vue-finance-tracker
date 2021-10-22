@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="page-subtitle">
-      <h4>Создать</h4>
+      <h4>{{localize('Create')}}</h4>
     </div>
 
     <form @submit.prevent="submitHandler">
@@ -12,12 +12,12 @@
             v-model="title"
             :class="{invalid: $v.title.$error}"
         >
-        <label for="name">Название</label>
+        <label for="name">{{localize('Title')}}</label>
         <span 
           v-if="$v.title.$error"
           class="helper-text invalid"
         >
-          Введите название категории
+          {{localize('Message_CategoryTitle')}}
         </span>
       </div>
 
@@ -33,12 +33,12 @@
           v-if="$v.limit.$error"
           class="helper-text invalid"
         >
-          Минимальное значение {{$v.limit.$params.minValue.min}}
+          {{localize('Message_MinLength')}} {{$v.limit.$params.minValue.min}}
         </span>
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Создать
+        {{localize('Create')}}
         <i class="material-icons right">send</i>
       </button>
     </form>

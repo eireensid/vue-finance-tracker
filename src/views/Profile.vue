@@ -12,12 +12,12 @@
             v-model="name"
             :class="{invalid: $v.name.$error}"
         >
-        <label for="description">Имя</label>
+        <label for="description">{{localize('Name')}}</label>
         <small 
           class="helper-text invalid"
           v-if="$v.name.$error"
         >
-          Введите имя
+          {{localize('Message_EnterName')}}
         </small>
       </div>
 
@@ -31,7 +31,7 @@
       </div>
 
       <button class="btn waves-effect waves-light" type="submit">
-        Обновить
+        {{localize('Update')}}
         <i class="material-icons right">send</i>
       </button>
     </form>
