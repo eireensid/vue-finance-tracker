@@ -30,7 +30,7 @@
             v-model.trim="password"
             :class="{invalid: ($v.password.$dirty && !$v.password.required) || ($v.password.$dirty && !$v.password.minLength)}"
         >
-        <label for="password">{{localize('Pasword')}}</label>
+        <label for="password">{{localize('Password')}}</label>
         <small 
           class="helper-text invalid"
           v-if="$v.password.$dirty && !$v.password.required"
@@ -78,7 +78,7 @@
       </div>
 
       <p class="center">
-        {{localize('HasAccount')}}
+        {{localize('HaveAccount')}}
         <router-link to="/login">{{localize('Login')}}!</router-link>
       </p>
     </div>
@@ -90,6 +90,11 @@ import {email, required, minLength} from 'vuelidate/lib/validators'
 
 export default {
   name: 'Register',
+  metaInfo() {
+    return {
+      title: this.$title('Register')
+    }
+  },
   data: () => ({
     email: '',
     password: '',

@@ -55,7 +55,7 @@
   "Message_EnterPassword": "Введите пароль",
   "Login": "Войти",
   "NoAccount": "Нет аккаунта?",
-  "HasAccount": "Уже есть аккаунт?",
+  "HaveAccount": "Уже есть аккаунт?",
   "Register": "Зарегистрироваться",
   "AcceptRules": "С правилами согласен",
   "CreateNewRecord": "Создать новую запись",

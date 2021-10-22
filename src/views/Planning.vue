@@ -33,6 +33,11 @@ import {Filters} from '@/mixins/filters.mixin'
 
 export default {
   name: 'Planning',
+  metaInfo() {
+    return {
+      title: this.$title('Menu_Planning')
+    }
+  },
   data: () => ({
     loading: true,
     categories: []

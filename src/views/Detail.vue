@@ -34,6 +34,11 @@ import {Filters} from '@/mixins/filters.mixin'
 
 export default {
   name: 'Record',
+  metaInfo() {
+    return {
+      title: this.$title('Detail_Title')
+    }
+  },
   data: () => ({
     record: null,
     loading: true
