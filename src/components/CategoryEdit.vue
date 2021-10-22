@@ -64,6 +64,7 @@
 
 <script>
 import {required, minValue} from 'vuelidate/lib/validators'
+import locale from '@/mixins/locale.mixin'
 
 export default {
   data: () => ({
@@ -76,6 +77,7 @@ export default {
     title: {required},
     limit: {minValue: minValue(100)}
   },
+  mixins: [locale],
   props: {
     categories: {
       type: Array,
@@ -128,7 +130,7 @@ export default {
           limit: this.limit
         }
         await this.$store.dispatch('updateCategory', categoryData)
-        this.$message('Категория успешно обновлена')
+        this.$message(this.localize('Category_HasBeenUpdated'))
         this.$emit('updated', categoryData) 
         
       } catch (e) {}
@@ -136,7 +138,7 @@ export default {
     async deleteHandler() {
       try {
         await this.$store.dispatch('deleteCategory', this.current)
-        this.$message('Категория успешно удалена')
+        this.$message(this.localize('Category_HasBeenDeleted'))
         this.$emit('updated', this.current) 
 
         const {id, title, limit} = this.categories[0]

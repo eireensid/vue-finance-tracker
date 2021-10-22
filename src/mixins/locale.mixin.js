@@ -7,7 +7,7 @@ const locales = {
   'en-US': en
 }
 
-export const locale = {
+export default {
   methods: {
     localize(key) {
       const locale = store.getters.info.locale || 'ru-RU'

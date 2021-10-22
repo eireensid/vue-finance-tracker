@@ -20,6 +20,7 @@
   "Message_MinLength": "Mininum length is",
   "Category_HasBeenCreated": "Category has been created",
   "Category_HasBeenUpdated": "Category has been updated",
+  "Category_HasBeenDeleted": "Category has been deleted",
   "SelectCategory": "Select category",
   "Amount": "Amount",
   "Date": "Date",

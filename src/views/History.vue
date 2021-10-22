@@ -32,6 +32,7 @@
 import HistoryTable from '@/components/HistoryTable'
 import pagination from '@/mixins/pagination.mixin'
 import { Pie } from 'vue-chartjs'
+import locale from '@/mixins/locale.mixin'
 
 export default {
   name: 'History',
@@ -48,7 +49,7 @@ export default {
     records: []
   }),
   extends: Pie,
-  mixins: [pagination],
+  mixins: [pagination, locale],
   async created() {
     this.records = await this.$store.dispatch('fetchRecords')
     const categories = await this.$store.dispatch('fetchCategories')
@@ -64,14 +65,14 @@ export default {
           ...record,
           categoryName: categories.find(c => c.id === record.categoryId).title,
           typeClass: record.type === 'income' ? 'green' : 'red',
-          typeText: record.type === 'income' ? 'Доход' : 'Расход'
+          typeText: record.type === 'income' ? this.localize('Income') : this.localize('Expense')
         }
       }))
 
       this.renderChart({
         labels: categories.map(c => c.title),
         datasets: [{
-            label: 'Расходы по категориям',
+            label: this.localize('CostsForCategories'),
             data: categories.map(c => {
               return this.records.reduce((total, r) => {
                 if (r.categoryId === c.id && r.type === 'expense') {

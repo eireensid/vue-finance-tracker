@@ -1,5 +1,3 @@
-import locale from '@/mixins/locale.mixin'
-
 export default {
   install(Vue) {
     Vue.prototype.$title = function(titleKey) {

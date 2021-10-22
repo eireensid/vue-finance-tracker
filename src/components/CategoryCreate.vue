@@ -47,6 +47,7 @@
 
 <script>
 import {required, minValue} from 'vuelidate/lib/validators'
+import locale from '@/mixins/locale.mixin'
 
 export default {
   data: () => ({
@@ -57,6 +58,7 @@ export default {
     title: {required},
     limit: {minValue: minValue(100)}
   },
+  mixins: [locale],
   mounted() {
     M.updateTextFields()
   },
@@ -75,7 +77,7 @@ export default {
         this.title = ''
         this.limit = 100
         this.$v.$reset()
-        this.$message('Категория была создана')
+        this.$message(this.localize('Category_HasBeenCreated'))
         this.$emit('created', category)
       } catch (e) {}
     }

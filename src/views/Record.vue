@@ -76,7 +76,7 @@
           v-if="$v.description.$error"
           class="helper-text invalid"
         >
-          {{localize('Message_EnretDescription')}}
+          {{localize('Message_EnterDescription')}}
         </span>
       </div>
 
@@ -91,6 +91,7 @@
 <script>
 import {required, minValue} from 'vuelidate/lib/validators'
 import {mapGetters} from 'vuex'
+import locale from '@/mixins/locale.mixin'
 
 export default {
   name: 'Record',
@@ -112,6 +113,7 @@ export default {
     amount: {minValue: minValue(1)},
     description: {required}
   },
+  mixins: [locale],
   async created() {
     this.categories = await this.$store.dispatch('fetchCategories')
     this.loading = false
@@ -161,13 +163,13 @@ export default {
             : this.info.bill - this.amount
 
           await this.$store.dispatch('updateInfo', {bill})  
-          this.$message('Запись успешно создана')
+          this.$message(this.localize('RecordHasBeenCreated'))
           this.$v.$reset()
           this.amount = 1
           this.description = ''
         } catch (e) {}
       } else {
-        this.$message(`Недостаточно средств на счете (${this.amount - this.info.bill})`)
+        this.$message(`${this.localize('NotEnoughMoney')} (${this.amount - this.info.bill})`)
       }
     }
   }

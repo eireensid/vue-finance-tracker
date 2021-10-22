@@ -21,6 +21,7 @@
   "Message_MinLength": "Минимальное значение",
   "Category_HasBeenCreated": "Категория была создана",
   "Category_HasBeenUpdated": "Категория упешно обновлена",
+  "Category_HasBeenDeleted": "Категория упешно удалена",
   "SelectCategory": "Выберите категорию",
   "Amount": "Сумма",
   "Date": "Дата",

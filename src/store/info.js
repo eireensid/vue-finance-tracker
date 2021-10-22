@@ -10,6 +10,7 @@ export default {
   mutations: {
     setInfo(state, info) {
       state.info = info
+      localStorage.setItem('locale', info.locale)
     },
     clearInfo(state) {
       state.info = {}
