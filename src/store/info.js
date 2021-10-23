@@ -13,7 +13,7 @@ export default {
       localStorage.setItem('locale', info.locale)
     },
     clearInfo(state) {
-      state.info = {}
+      state.info = { locale: state.info.locale }
     }
   },
   actions: {

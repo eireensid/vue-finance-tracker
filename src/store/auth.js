@@ -22,8 +22,7 @@ export default {
         const db = getDatabase();
         await set(ref(db, `/users/${uid}/info`), {
           bill: 10000,
-          name,
-          locale: localStorage.getItem('locale') || 'ru-RU'
+          name
         })
       } catch(e) {
         commit('setError', e)

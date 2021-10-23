@@ -36,7 +36,12 @@ const locales = {
 Vue.mixin({
   methods: {
     localize(key) {
-      const locale = localStorage.getItem('locale') || 'ru-RU'
+      let locale = ''
+      if (this.$route.meta.layout === 'empty') {
+        locale = localStorage.locale || 'ru-RU'
+      } else {
+        locale = store.getters.info.locale || 'ru-RU'
+      }
       return locales[locale][key] || `[Localize error]: key ${key} not found`
     }
   }

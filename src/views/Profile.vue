@@ -59,7 +59,7 @@ export default {
     ...mapGetters(['info'])
   },
   mounted() {
-    this.isRuLocale = localStorage.getItem('locale') === 'ru-RU'
+    this.isRuLocale = this.info.locale === 'ru-RU'
     
     setTimeout(() => {
       this.name = this.info.name
